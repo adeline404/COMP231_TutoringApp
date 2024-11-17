@@ -2,8 +2,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+<<<<<<< HEAD
 import { loginLearner } from '../api/learnerApi';
 import { loginTutor } from '../api/tutorApi';
+=======
+>>>>>>> 580b3c77495da8adbf1056e8d977f74892be9a30
 
 const LEARNERS_KEY = 'learners';
 const TUTORS_KEY = 'tutors';
@@ -13,6 +16,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
+<<<<<<< HEAD
     // // Load latest data from AsyncStorage
     // const learnersData = await AsyncStorage.getItem(LEARNERS_KEY);
     // const tutorsData = await AsyncStorage.getItem(TUTORS_KEY);
@@ -54,6 +58,27 @@ export default function LoginScreen({ navigation }) {
       } catch (err) {
         Alert.alert('Login Failed', 'Invalid email or password');
       }
+=======
+    // Load latest data from AsyncStorage
+    const learnersData = await AsyncStorage.getItem(LEARNERS_KEY);
+    const tutorsData = await AsyncStorage.getItem(TUTORS_KEY);
+    const learners = learnersData ? JSON.parse(learnersData) : [];
+    const tutors = tutorsData ? JSON.parse(tutorsData) : [];
+
+    // Check if user exists in learners or tutors data
+    const user = [...learners, ...tutors].find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (user) {
+      if (learners.some((learner) => learner.email === email)) {
+        navigation.navigate('LearnerHomepage');
+      } else {
+        navigation.navigate('TutorHomepage');
+      }
+    } else {
+      Alert.alert('Login Failed', 'Invalid email or password');
+>>>>>>> 580b3c77495da8adbf1056e8d977f74892be9a30
     }
   };
 

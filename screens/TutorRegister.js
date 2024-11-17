@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { addTutor } from '../data/userData';
+<<<<<<< HEAD
 import { registerTutor } from '../api/tutorApi';
+=======
+>>>>>>> 580b3c77495da8adbf1056e8d977f74892be9a30
 
 export default function TutorRegister({ navigation }) {
   const [name, setName] = useState('');
@@ -16,6 +19,7 @@ export default function TutorRegister({ navigation }) {
       return;
     }
 
+<<<<<<< HEAD
     // await addTutor({ name, email, password, expertise });
     // Alert.alert('Success', 'Tutor registered successfully');
     // navigation.navigate('Login'); // Redirect back to login after registration
@@ -33,6 +37,11 @@ export default function TutorRegister({ navigation }) {
       console.error(error); // Debugging purposes
       Alert.alert('Error', error.response?.data?.error || 'Something went wrong');
     }
+=======
+    await addTutor({ name, email, password, expertise });
+    Alert.alert('Success', 'Tutor registered successfully');
+    navigation.navigate('Login'); // Redirect back to login after registration
+>>>>>>> 580b3c77495da8adbf1056e8d977f74892be9a30
   };
 
   return (
