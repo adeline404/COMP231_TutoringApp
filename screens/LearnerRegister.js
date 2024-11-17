@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 //import { addLearner } from '../data/userData';
-import { registerLearner } from '../api/learnerApi';
+import { registerLearner } from '../backend/api/learnerApi';
 
 export default function LearnerRegister({ navigation }) {
   const [name, setName] = useState('');

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { addTutor } from '../data/userData';
-import { registerTutor } from '../api/tutorApi';
+import { registerTutor } from '../backend/api/tutorApi';
 
 export default function TutorRegister({ navigation }) {
   const [name, setName] = useState('');

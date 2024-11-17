@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 //import tutors from '../data/tutors';
-import { getTutors } from '../api/tutorApi';
+import { getTutors } from '../backend/api/tutorApi';
 
 export default function TutorHomepage() {
   const [tutors, setTutors] = useState([]);

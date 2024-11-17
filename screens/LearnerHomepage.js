@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 //import learners from '../data/learners';
-import { getLearners } from '../api/learnerApi';
+import { getLearners } from '../backend/api/learnerApi';
 
 export default function LearnerHomepage() {
   const [learners, setLearners] = useState([]);

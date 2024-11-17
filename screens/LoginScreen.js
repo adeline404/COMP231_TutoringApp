@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loginLearner } from '../api/learnerApi';
-import { loginTutor } from '../api/tutorApi';
+import { loginLearner } from '../backend/api/learnerApi';
+import { loginTutor } from '../backend/api/tutorApi';
 
 const LEARNERS_KEY = 'learners';
 const TUTORS_KEY = 'tutors';
