@@ -1,38 +1,31 @@
-// screens/LearnerHomepage.js
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-//import learners from '../data/learners';
-import { getLearners } from '../backend/api/learnerApi';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import LearnerProfileManager from './components/LearnerProfileManager';
+import TutorBrowser from './components/TutorBrowser';
+import UpcomingSessions from './components/UpcomingSessions';
 
-export default function LearnerHomepage() {
-  const [learners, setLearners] = useState([]);
-
-  useEffect(() => {
-    const fetchLearners = async () => {
-      try {
-        const response = await getLearners();
-        setLearners(response.data);
-      } catch (error) {
-        console.error('Error fetching learners:', error);
-      }
-    };
-    fetchLearners();
-  }, []);
+export default function LearnerHomepage({ route }) {
+  const { learner } = route.params; // Access the passed learner object
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Learner Homepage</Text>
-      <FlatList
-        data={learners}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text>Name: {item.name}</Text>
-            <Text>Email: {item.email}</Text>
-            <Text>Subject: {item.subject}</Text>
-          </View>
-        )}
-      />
+
+      {/* Main Content */}
+      <View style={styles.content}>
+        {/* Profile Section */}
+        <View style={styles.section}>
+          <LearnerProfileManager learner={learner} />
+        </View>
+        {/* Tutor Browser */}
+        <View style={styles.section}>
+          <TutorBrowser />
+        </View>
+        {/* Upcoming Sessions */}
+        <View style={styles.section}>
+          <UpcomingSessions />
+        </View>
+      </View>
     </View>
   );
 }
@@ -40,5 +33,6 @@ export default function LearnerHomepage() {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
   title: { fontSize: 24, marginBottom: 10 },
-  item: { padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' },
+  content: { marginTop: 20 },
+  section: { marginBottom: 40 },
 });
