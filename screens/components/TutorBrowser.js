@@ -1,67 +1,86 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import { getTutors } from '../../backend/api/tutorApi';
 
-const tutors = [
-  {
-    id: '1',
-    name: 'John Doe',
-    subject: 'Mathematics',
-    rating: 4.8,
-    profilePicture: 'https://via.placeholder.com/150',
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    subject: 'Physics',
-    rating: 4.5,
-    profilePicture: 'https://via.placeholder.com/150',
-  },
-  {
-    id: '3',
-    name: 'Alice Johnson',
-    subject: 'Chemistry',
-    rating: 4.7,
-    profilePicture: 'https://via.placeholder.com/150',
-  },
-  {
-    id: '4',
-    name: 'Mike Brown',
-    subject: 'Biology',
-    rating: 4.6,
-    profilePicture: 'https://via.placeholder.com/150',
-  },
-  {
-    id: '5',
-    name: 'Emily White',
-    subject: 'English',
-    rating: 4.9,
-    profilePicture: 'https://via.placeholder.com/150',
-  },
-  {
-    id: '6',
-    name: 'David Lee',
-    subject: 'History',
-    rating: 4.3,
-    profilePicture: 'https://via.placeholder.com/150',
-  },
-];
+// const tutors = [
+//   {
+//     id: '1',
+//     name: 'John Doe',
+//     subject: 'Mathematics',
+//     rating: 4.8,
+//     profilePicture: 'https://via.placeholder.com/150',
+//   },
+//   {
+//     id: '2',
+//     name: 'Jane Smith',
+//     subject: 'Physics',
+//     rating: 4.5,
+//     profilePicture: 'https://via.placeholder.com/150',
+//   },
+//   {
+//     id: '3',
+//     name: 'Alice Johnson',
+//     subject: 'Chemistry',
+//     rating: 4.7,
+//     profilePicture: 'https://via.placeholder.com/150',
+//   },
+//   {
+//     id: '4',
+//     name: 'Mike Brown',
+//     subject: 'Biology',
+//     rating: 4.6,
+//     profilePicture: 'https://via.placeholder.com/150',
+//   },
+//   {
+//     id: '5',
+//     name: 'Emily White',
+//     subject: 'English',
+//     rating: 4.9,
+//     profilePicture: 'https://via.placeholder.com/150',
+//   },
+//   {
+//     id: '6',
+//     name: 'David Lee',
+//     subject: 'History',
+//     rating: 4.3,
+//     profilePicture: 'https://via.placeholder.com/150',
+//   },
+// ];
 
 const TutorBrowser = () => {
   const [loading, setLoading] = useState(false);
+  const [tutors, setTutors] = useState([]);
 
-  // Simulate API call
+  // // Simulate API call
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1000);
+  // }, []);
+
+  // Fetch tutors from the API
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    const fetchTutors = async () => {
+      setLoading(true);
+      try {
+        const response = await getTutors();
+        setTutors(response.data); // Assuming the API returns an array of tutors in `response.data`
+      } catch (error) {
+        Alert.alert('Error', 'Failed to fetch tutors. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTutors();
   }, []);
 
   const renderTutorCard = ({ item }) => (
     <View style={styles.card}>
-      <Image source={{ uri: item.profilePicture }} style={styles.image} />
+      <Image source={{ uri: 'https://via.placeholder.com/150' }} style={styles.image} />
       <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.subject}>{item.subject}</Text>
+      <Text style={styles.subject}>{item.expertise}</Text>
     </View>
   );
 
