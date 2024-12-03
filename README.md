@@ -8,4 +8,4 @@ node server.js
 
 (open another terminal)
 
-npx run android
+npm run android
