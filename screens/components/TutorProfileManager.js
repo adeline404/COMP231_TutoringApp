@@ -4,18 +4,22 @@ import {
   Text,
   TextInput,
   Button,
-  TouchableOpacity,
   StyleSheet,
   Alert,
   Modal,
   Image,
 } from 'react-native';
+import ManageProfileButton from './ManageProfileButton'; // Import the reusable button component
 
-const TutorProfileManager = (props) => {
+//const TutorProfileManager = ({ tutor, showManageButton = true }) => {
+const TutorProfileManager = ({ tutor, showManageButton = true }) => {
+  
+  // const { tutor, showManageButton = true } = route.params || {};
+  
   const [profile, setProfile] = useState({
-    name: props.tutor.name,
-    email: props.tutor.email,
-    subject: props.tutor.expertise,
+    name: tutor.name,
+    email: tutor.email,
+    subject: tutor.expertise,
     profilePicture: require('../assets/1.png'), // Use local image
   });
   const [isModalVisible, setModalVisible] = useState(false);
@@ -40,39 +44,38 @@ const TutorProfileManager = (props) => {
       </View>
 
       {/* Manage Profile Button */}
-      <TouchableOpacity
-        style={styles.manageButton}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.manageButtonText}>Manage Profile</Text>
-      </TouchableOpacity>
+      {showManageButton && (
+        <ManageProfileButton onPress={() => setModalVisible(true)} />
+      )}
 
       {/* Modal for Editing Profile */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalHeader}>Edit Profile</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Name"
-              value={profile.name}
-              onChangeText={(text) => setProfile({ ...profile, name: text })}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={profile.email}
-              onChangeText={(text) => setProfile({ ...profile, email: text })}
-            />
-            <Button title="Save Changes" onPress={handleSave} />
+      {showManageButton && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isModalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalHeader}>Edit Profile</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Name"
+                value={profile.name}
+                onChangeText={(text) => setProfile({ ...profile, name: text })}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={profile.email}
+                onChangeText={(text) => setProfile({ ...profile, email: text })}
+              />
+              <Button title="Save Changes" onPress={handleSave} />
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      )}
     </View>
   );
 };
@@ -103,17 +106,6 @@ const styles = StyleSheet.create({
   email: {
     fontSize: 16,
     color: '#555',
-  },
-  manageButton: {
-    backgroundColor: '#007bff',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  manageButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   modalContainer: {
     flex: 1,

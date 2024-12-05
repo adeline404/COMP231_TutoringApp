@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { getTutors } from '../../backend/api/tutorApi';
 
 // const tutors = [
@@ -50,6 +51,7 @@ import { getTutors } from '../../backend/api/tutorApi';
 const TutorBrowser = () => {
   const [loading, setLoading] = useState(false);
   const [tutors, setTutors] = useState([]);
+  const navigation = useNavigation(); // Use the navigation hook
 
   // // Simulate API call
   // useEffect(() => {
@@ -77,12 +79,20 @@ const TutorBrowser = () => {
   }, []);
 
   const renderTutorCard = ({ item }) => (
-    <View style={styles.card}>
-      <Image source={{ uri: 'https://via.placeholder.com/150' }} style={styles.image} />
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.subject}>{item.expertise}</Text>
-    </View>
+    <TouchableOpacity style={styles.card}
+      onPress={() =>
+        navigation.navigate('TutorDetailsPage', { tutor: item })
+      }
+    >
+      <View>
+        <Image source={{ uri: 'https://via.placeholder.com/150' }} style={styles.image} />
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.subject}>{item.expertise}</Text>
+      </View>
+    </TouchableOpacity>
   );
+
+  
 
   if (loading) {
     return (

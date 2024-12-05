@@ -4,12 +4,12 @@ import {
   Text,
   TextInput,
   Button,
-  TouchableOpacity,
   StyleSheet,
   Alert,
   Modal,
   Image,
 } from 'react-native';
+import ManageProfileButton from './ManageProfileButton'; // Import the new component
 
 const LearnerProfileManager = (props) => {
   const [profile, setProfile] = useState({
@@ -40,12 +40,7 @@ const LearnerProfileManager = (props) => {
       </View>
 
       {/* Manage Profile Button */}
-      <TouchableOpacity
-        style={styles.manageButton}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.manageButtonText}>Manage Profile</Text>
-      </TouchableOpacity>
+      <ManageProfileButton onPress={() => setModalVisible(true)} />
 
       {/* Modal for Editing Profile */}
       <Modal
@@ -103,17 +98,6 @@ const styles = StyleSheet.create({
   email: {
     fontSize: 16,
     color: '#555',
-  },
-  manageButton: {
-    backgroundColor: '#007bff',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  manageButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   modalContainer: {
     flex: 1,
