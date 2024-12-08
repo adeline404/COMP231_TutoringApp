@@ -58,12 +58,10 @@ const LearnerProfileManager = (props) => {
               value={profile.name}
               onChangeText={(text) => setProfile({ ...profile, name: text })}
             />
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={profile.email}
-              onChangeText={(text) => setProfile({ ...profile, email: text })}
-            />
+            {/* Use Text or a styled non-editable TextInput for Email */}
+			<Text style={styles.textDisplay}>
+			  {profile.email}
+			</Text>
             <Button title="Save Changes" onPress={handleSave} />
           </View>
         </View>
@@ -122,6 +120,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 15,
+  },
+  nonEditable: {
+    backgroundColor: '#f0f0f0',
+    color: '#888',
+  },
+  textDisplay: {
+    fontSize: 16,
+    color: '#888', // Adjust as needed
+	backgroundColor: '#f0f0f0'
   },
 });
 
